@@ -1,0 +1,93 @@
+.employees-card {
+    margin-top: 1.5rem;
+  }
+  
+  .search-container {
+    margin-top: 1rem;
+    max-width: 400px;
+  }
+  
+  .search-input-wrapper {
+    position: relative;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+  }
+  
+  .employees-table-container {
+    overflow-x: auto;
+    margin-top: 1rem;
+  }
+  
+  .employees-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .employees-table th,
+  .employees-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .employees-table th {
+    font-weight: 600;
+    color: #4b5563;
+    background-color: #f9fafb;
+  }
+  
+  .status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .status-badge.active {
+    background-color: #dcfce7;
+    color: #166534;
+  }
+  
+  .status-badge.inactive {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+  
+  .action-buttons {
+    display: flex;
+  }
+  
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.375rem;
+    background-color: transparent;
+    color: #6b7280;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-icon:hover {
+    background-color: #f3f4f6;
+    color: #4b5563;
+  }
+  
