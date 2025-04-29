@@ -1,5 +1,4 @@
 import Card from "./ui/Card.jsx"
-import "../styles/RecentActivity.css"
 
 function RecentActivity() {
   const activities = [
@@ -31,30 +30,37 @@ function RecentActivity() {
       details: "March 2025 payroll completed for 24 employees",
       time: "28 Mar",
     },
+    {
+      id: 5,
+      name: "Arun Nagelli",
+      action: "payslip generated",
+      details: "April 2025 payslip processed",
+      time: "Today",
+    }
   ]
 
   return (
-    <Card className="recent-activity">
-      <div className="card-header">
-        <h2>Recent Activity</h2>
-        <p>Recent payroll and employee activities</p>
+    <Card className="mt-4">
+      <div className="mb-4 flex justify-between p-5 border-b border-gray-200">
+        <h2 className="text-lg font-semibold">Recent Activity</h2>
+        <p className="text-sm text-gray-600">Recent payroll and employee activities</p>
       </div>
-      <div className="activity-list">
+      <div className="flex flex-col gap-5 p-5 pt-0">
         {activities.map((activity) => (
-          <div key={activity.id} className="activity-item">
-            <div className="activity-avatar">
+          <div key={activity.id} className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold text-gray-600 shrink-0">
               {activity.name
                 .split(" ")
                 .map((n) => n[0])
                 .join("")}
             </div>
-            <div className="activity-details">
-              <p className="activity-title">
-                {activity.name} {activity.action}
-              </p>
-              <p className="activity-description">{activity.details}</p>
+            <div className="flex-1">
+              <p className="font-medium mb-1">{activity.name} {activity.action}</p>
+              <p className="text-sm text-gray-500">{activity.details}</p>
             </div>
-            <div className="activity-time">{activity.time}</div>
+            <div className="text-sm text-gray-500 whitespace-nowrap ml-4">
+              {activity.time}
+            </div>
           </div>
         ))}
       </div>

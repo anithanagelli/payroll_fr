@@ -1,82 +1,74 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { FaMoneyBillWave, FaBars, FaTimes, FaUserCircle } from "react-icons/fa"
-import "../styles/Navbar.css"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { FaMoneyBillWave, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 
 function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen)
-  }
-
-  const toggleUserMenu = () => {
-    setUserMenuOpen(!userMenuOpen)
-  }
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          <FaMoneyBillWave className="logo-icon" />
-          <span className="logo-text">PayrollPro</span>
+    <nav className="bg-white shadow-md sticky top-0 z-10">
+      <div className="flex items-center justify-between p-4 max-w-screen-xl mx-auto">
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-blue-600 font-bold text-lg"
+        >
+          <FaMoneyBillWave className="text-2xl" />
+          <span>PayrollPro</span>
         </Link>
 
-        <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
-          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+        {/* Mobile Menu Icon */}
+        <div className="lg:hidden" onClick={toggleMobileMenu}>
+          {mobileMenuOpen ? (
+            <FaTimes className="text-xl text-gray-600" />
+          ) : (
+            <FaBars className="text-xl text-gray-600" />
+          )}
         </div>
 
-        <ul className={`nav-menu ${mobileMenuOpen ? "active" : ""}`}>
-          <li className="nav-item">
-            <Link to="/" className="nav-link" onClick={() => setMobileMenuOpen(false)}>
+        {/* Navigation Links */}
+        <ul
+          className={`flex flex-col lg:flex-row items-center lg:items-center justify-center absolute lg:static bg-white lg:bg-transparent w-full lg:w-auto top-16 left-0 transition-transform duration-300 ease-in-out ${
+            mobileMenuOpen
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-full opacity-0"
+          } lg:translate-x-0 lg:opacity-100`}
+        >
+          <li className="nav-item border-b lg:border-none w-full text-center lg:w-auto lg:text-left border-b lg:border-none">
+            <Link
+              to="/"
+              className="block py-2 px-4 text-gray-700 font-semibold hover:text-blue-600 transition duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Dashboard
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/employees" className="nav-link" onClick={() => setMobileMenuOpen(false)}>
+          <li className="nav-item border-b lg:border-none w-full text-center lg:w-auto lg:text-left border-b lg:border-none">
+            <Link
+              to="/employees"
+              className="block py-2 px-4 text-gray-700 font-semibold hover:text-blue-600 transition duration-200"
+              
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Employees
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/payroll" className="nav-link" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              to="/payroll"
+              className="block py-2 px-4 text-gray-700 font-semibold hover:text-blue-600 transition duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Payroll
             </Link>
           </li>
-          {/* <li className="nav-item">
-            <Link to="/reports" className="nav-link" onClick={() => setMobileMenuOpen(false)}>
-              Reports
-            </Link>
-          </li> */}
         </ul>
-
-        {/* <div className="user-menu-container">
-          <div className="user-avatar" onClick={toggleUserMenu}>
-            <FaUserCircle />
-          </div>
-          {userMenuOpen && (
-            <div className="user-dropdown">
-              <div className="user-info">
-                <p className="user-name">Admin User</p>
-                <p className="user-email">admin@company.com</p>
-              </div>
-              <ul className="user-menu">
-                <li className="user-menu-item">
-                  <Link to="/profile">Profile</Link>
-                </li>
-                <li className="user-menu-item">
-                  <Link to="/settings">Settings</Link>
-                </li>
-                <li className="user-menu-item">
-                  <Link to="/logout">Logout</Link>
-                </li>
-              </ul>
-            </div>
-          )}
-        </div> */}
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

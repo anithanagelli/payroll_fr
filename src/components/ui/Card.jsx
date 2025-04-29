@@ -1,7 +1,6 @@
-import "../../styles/ui/Card.css"
-
 function Card({ children, className = "" }) {
-  return <div className={`card ${className}`}>{children}</div>
+  const baseClasses = "bg-white rounded-lg shadow overflow-hidden"
+  return <div className={`${baseClasses} ${className}`}>{children}</div>
 }
 
 export default Card

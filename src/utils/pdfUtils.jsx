@@ -21,7 +21,7 @@ const formatDate = (dateString) => {
 
 export const generatePayslipPDF = (payrollData) => {
   const {
-    employee,
+    employee = {}, // Set default empty object in case employee is undefined
     grossSalary,
     incomeTax,
     niContributions,
@@ -37,6 +37,13 @@ export const generatePayslipPDF = (payrollData) => {
   const monthlyNI = niContributions / 12
   const monthlyPension = pensionContribution / 12
   const monthlyNet = netSalary / 12
+
+  // Calculate weekly values
+  const weeklyGross = grossSalary / 52
+  const weeklyTax = incomeTax / 52
+  const weeklyNI = niContributions / 52
+  const weeklyPension = pensionContribution / 52
+  const weeklyNet = netSalary / 52
 
   // Create a new PDF document
   const doc = new jsPDF()
@@ -69,13 +76,35 @@ export const generatePayslipPDF = (payrollData) => {
   doc.text(`Tax Code: ${employee?.taxCode || "N/A"}`, 20, 75)
   doc.text(`Payment Date: ${paymentDate ? formatDate(paymentDate) : "N/A"}`, 20, 80)
 
+  // weekly payment table
+  doc.setFontSize(12)
+  doc.setFont("helvetica", "bold")
+  doc.text("Weekly Payment Details", 20, 95)
+
+  autoTable(doc, {
+    startY: 100, // Start Y position for weekly table
+    head: [["Description", "Amount"]],
+    body: [
+      ["Gross Salary", formatCurrency(weeklyGross)],
+      ["Income Tax", `-${formatCurrency(weeklyTax)}`],
+      ["National Insurance", `-${formatCurrency(weeklyNI)}`],
+      [`Pension Contribution (${pensionRate}%)`, `-${formatCurrency(weeklyPension)}`],
+      ["Net Pay", formatCurrency(weeklyNet)],
+    ],
+    theme: "grid",
+    headStyles: { fillColor: [66, 139, 202] },
+  })
+
+  // Adjust Y position after weekly table
+  const afterWeeklyTableY = doc.lastAutoTable.finalY + 10
+
   // Monthly payment table
   doc.setFontSize(12)
   doc.setFont("helvetica", "bold")
-  doc.text("Monthly Payment Details", 20, 95)
+  doc.text("Monthly Payment Details", 20, afterWeeklyTableY)
 
   autoTable(doc, {
-    startY: 100,
+    startY: afterWeeklyTableY + 5, // Start Y position for monthly table
     head: [["Description", "Amount"]],
     body: [
       ["Gross Salary", formatCurrency(monthlyGross)],
@@ -86,19 +115,18 @@ export const generatePayslipPDF = (payrollData) => {
     ],
     theme: "grid",
     headStyles: { fillColor: [66, 139, 202] },
-    // foot: [["Net Pay", formatCurrency(monthlyNet)]],
-    // footStyles: { fillColor: [66, 139, 202], fontStyle: "bold" },
   })
 
-  // Annual payment table
-  const afterMonthlyTableY = doc.lastAutoTable.finalY + 20
+  // Adjust Y position after monthly table
+  const afterMonthlyTableY = doc.lastAutoTable.finalY + 10
 
+  // Annual payment table
   doc.setFontSize(12)
   doc.setFont("helvetica", "bold")
   doc.text("Annual Payment Details", 20, afterMonthlyTableY)
 
   autoTable(doc, {
-    startY: afterMonthlyTableY + 5,
+    startY: afterMonthlyTableY + 5, // Start Y position for annual table
     head: [["Description", "Amount"]],
     body: [
       ["Gross Salary", formatCurrency(grossSalary)],
@@ -109,15 +137,16 @@ export const generatePayslipPDF = (payrollData) => {
     ],
     theme: "grid",
     headStyles: { fillColor: [66, 139, 202] },
-    // foot: [["Net Pay", formatCurrency(netSalary)]],
-    // footStyles: { fillColor: [66, 139, 202], fontStyle: "bold" },
   })
+
+  // Adjust Y position for footer
+  const afterAnnualTableY = doc.lastAutoTable.finalY + 10
 
   // Footer
   doc.setFontSize(8)
   doc.setFont("helvetica", "italic")
-  doc.text("This payslip was generated automatically by PayrollPro.", 105, 280, { align: "center" })
-  doc.text("Please contact HR for any queries regarding this payslip.", 105, 285, { align: "center" })
+  doc.text("This payslip was generated automatically by PayrollPro.", 105, afterAnnualTableY + 10, { align: "center" })
+  doc.text("Please contact HR for any queries regarding this payslip.", 105, afterAnnualTableY + 15, { align: "center" })
 
   // Save the PDF
   const safeName = (employee?.name || "employee").replace(/\s+/g, "-").toLowerCase()

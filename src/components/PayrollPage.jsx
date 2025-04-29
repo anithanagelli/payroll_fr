@@ -1,84 +1,79 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Card from "./ui/Card.jsx"
 import Button from "./ui/Button.jsx"
 import PayrollCalculator from "./PayrollCalculator.jsx"
 import { FaPlay, FaCalendarAlt } from "react-icons/fa"
-import "../styles/PayrollPage.css"
 
 function PayrollPage() {
-  const [employees, setEmployees] = useState([
-    { id: 1, name: "John Doe", position: "Software Engineer", salary: 45000, taxCode: "1257L", status: "Active" },
-    { id: 2, name: "Sarah Davis", position: "Marketing Manager", salary: 52000, taxCode: "1257L", status: "Active" },
-    { id: 3, name: "William Smith", position: "Product Designer", salary: 42000, taxCode: "1257L", status: "Active" },
-    { id: 4, name: "Emma Johnson", position: "HR Specialist", salary: 38000, taxCode: "1257L", status: "Active" },
-    {
-      id: 5,
-      name: "Michael Brown",
-      position: "Sales Representative",
-      salary: 36000,
-      taxCode: "1257L",
-      status: "Active",
-    },
-  ])
-
+  const [employees, setEmployees] = useState([])
   const [selectedEmployee, setSelectedEmployee] = useState(null)
 
+  // Load employees from localStorage on first render
+  useEffect(() => {
+    const stored = localStorage.getItem("employees")
+    if (stored) {
+      setEmployees(JSON.parse(stored))
+    }
+  }, [])
+
   return (
-    <div className="payroll-page">
-      <div className="page-header">
+    <div className="">
+      <div className="flex justify-between items-center mb-6">
         <div>
-          <h1>Payroll</h1>
-          <p>Process and manage your company's payroll</p>
+          <h1 className="text-2xl font-semibold">Payroll</h1>
+          <p className="text-gray-600">Process and manage your company's payroll</p>
         </div>
-        <div className="header-actions">
-          <Button className="btn-primary">
+        <div className="flex gap-4">
+          <Button className="bg-blue-600 text-white px-4 py-2 rounded-md flex items-center gap-2">
             <FaPlay /> Run Payroll
           </Button>
-          <Button className="btn-outline">
+          <Button className="border border-gray-300 text-gray-700 px-4 py-2 rounded-md flex items-center gap-2">
             <FaCalendarAlt /> Schedule
           </Button>
         </div>
       </div>
 
-      <div className="payroll-stats">
-        <Card className="payroll-stat-card">
-          <h3>Next Payroll</h3>
-          <p className="stat-subtitle">April 2025</p>
-          <div className="stat-value">28 April 2025</div>
-          <p className="stat-description">11 days remaining</p>
-          <Button className="btn-primary btn-sm btn-block mt-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:grid-cols-3 mb-8">
+        <Card className="p-6">
+          <h3 className="text-xl font-semibold mb-2">Next Payroll</h3>
+          <p className="text-sm text-gray-500 mb-2">April 2025</p>
+          <div className="text-2xl font-semibold mb-2">28 April 2025</div>
+          <p className="text-sm text-gray-500">11 days remaining</p>
+          <Button className="bg-blue-600 text-white text-sm w-full py-2 mt-4 flex items-center justify-center gap-2">
             <FaPlay /> Process Now
           </Button>
         </Card>
 
-        <Card className="payroll-stat-card">
-          <h3>Estimated Total</h3>
-          <p className="stat-subtitle">Based on current employees</p>
-          <div className="stat-value">£68,432</div>
-          <p className="stat-description">Gross amount</p>
-          <div className="stat-value-secondary">£52,345</div>
-          <p className="stat-description">Net amount</p>
+        <Card className="p-6">
+          <h3 className="text-xl font-semibold mb-2">Estimated Total</h3>
+          <p className="text-sm text-gray-500 mb-2">Based on current employees</p>
+          <div className="text-2xl font-semibold mb-2">£68,432</div>
+          <p className="text-sm text-gray-500">Gross amount</p>
+          <div className="text-2xl font-semibold mb-2">£52,345</div>
+          <p className="text-sm text-gray-500">Net amount</p>
         </Card>
 
-        <Card className="payroll-stat-card">
-          <h3>Tax & NI</h3>
-          <p className="stat-subtitle">Estimated contributions</p>
-          <div className="stat-value">£12,234</div>
-          <p className="stat-description">Income Tax</p>
-          <div className="stat-value-secondary">£3,853</div>
-          <p className="stat-description">National Insurance</p>
+        <Card className="p-6">
+          <h3 className="text-xl font-semibold mb-2">Tax & NI</h3>
+          <p className="text-sm text-gray-500 mb-2">Estimated contributions</p>
+          <div className="text-2xl font-semibold mb-2">£12,234</div>
+          <p className="text-sm text-gray-500">Income Tax</p>
+          <div className="text-2xl font-semibold mb-2">£3,853</div>
+          <p className="text-sm text-gray-500">National Insurance</p>
         </Card>
       </div>
 
-      <div className="payroll-section">
-        <h2>Process Individual Payroll</h2>
-        <p>Select an employee to calculate and process their payroll</p>
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold mb-2">Process Individual Payroll</h2>
+        <p className="text-gray-600 mb-6">Select an employee to calculate and process their payroll</p>
 
-        <div className="employee-selector">
-          <label htmlFor="employee-select">Select Employee:</label>
+        <div className="mb-6 max-w-md">
+          <label htmlFor="employee-select" className="block text-sm font-medium text-gray-700 mb-2">
+            Select Employee:
+          </label>
           <select
             id="employee-select"
-            className="form-select"
+            className="form-select block w-full p-2 border border-gray-300 rounded-md"
             value={selectedEmployee ? selectedEmployee.id : ""}
             onChange={(e) => {
               const id = Number.parseInt(e.target.value)
