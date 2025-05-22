@@ -1,32 +1,33 @@
+//RecentActivity.jsx
 import Card from "./ui/Card.jsx"
 
 function RecentActivity() {
   const activities = [
     {
       id: 1,
-      name: "John Doe",
+      name: "Anitha Nagelli",
       action: "added to payroll",
       details: "New employee added with £45,000 annual salary",
       time: "Today",
     },
     {
       id: 2,
-      name: "Sarah Davis",
+      name: "Swapna Damala",
       action: "payslip generated",
       details: "April 2025 payslip processed",
       time: "Yesterday",
     },
     {
       id: 3,
-      name: "William Smith",
+      name: "Mounika CH",
       action: "salary updated",
       details: "Salary increased from £38,000 to £42,000",
       time: "2 days ago",
     },
     {
       id: 4,
-      name: "Monthly payroll",
-      action: "processed",
+      name: "Krupa Sekhar",
+      action: "Monthly payroll processed",
       details: "March 2025 payroll completed for 24 employees",
       time: "28 Mar",
     },

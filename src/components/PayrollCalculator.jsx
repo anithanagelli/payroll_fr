@@ -1,3 +1,4 @@
+//PayrollCalculator.jsx
 import { useState } from "react"
 import Card from "./ui/Card.jsx"
 import Button from "./ui/Button.jsx"
@@ -37,6 +38,12 @@ function PayrollCalculator({ employee }) {
         niContributions = (50340 - 12570) * 0.08 + (grossSalary - 50340) * 0.02 // NI 2%
       }
     }
+
+    // Adjust NI if employee is over State Pension age
+  const age = new Date().getFullYear() - new Date(employee.dob).getFullYear();
+  if (age >= 66) {
+    niContributions = 0; // No NI if over State Pension age
+  }
 
     // Calculate pension contribution
     const pensionContribution = (grossSalary * pensionRate) / 100
@@ -80,6 +87,11 @@ function PayrollCalculator({ employee }) {
           <div className="mb-4">
             <label htmlFor="tax-code" className="block text-sm font-medium text-gray-700">Tax Code</label>
             <input type="text" id="tax-code" value={employee.taxCode} readOnly className="mt-1 block w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="dob" className="block text-sm font-medium text-gray-700">Date of Birth</label>
+            <input type="Date" id="dob" value={employee.dob} readOnly className="mt-1 block w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"/>
           </div>
 
           <div className="mb-4">

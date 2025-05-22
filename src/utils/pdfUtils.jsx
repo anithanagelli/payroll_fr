@@ -1,3 +1,4 @@
+//pdfUtils.jsx
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
 
@@ -8,6 +9,7 @@ const formatCurrency = (amount) => {
     maximumFractionDigits: 2,
   })}`
 }
+
 
 // Helper function to format date
 const formatDate = (dateString) => {
@@ -55,10 +57,10 @@ export const generatePayslipPDF = (payrollData) => {
 
   doc.setFontSize(12)
   doc.setFont("helvetica", "normal")
-  doc.text("PayrollPro Ltd", 105, 30, { align: "center" })
+  doc.text("Middleware Talents Ltd", 105, 30, { align: "center" })
   doc.setFontSize(10)
-  doc.text("123 Business Street, London, UK", 105, 35, { align: "center" })
-  doc.text("Company Reg: 12345678", 105, 40, { align: "center" })
+  doc.text("200, Brrok Drive, Green park, Reading, RG2 6UB, UK", 105, 35, { align: "center" })
+  doc.text("Company Reg: 0800 060 8702", 105, 40, { align: "center" })
 
   // Add horizontal line
   doc.setDrawColor(200, 200, 200)
@@ -86,9 +88,9 @@ export const generatePayslipPDF = (payrollData) => {
     head: [["Description", "Amount"]],
     body: [
       ["Gross Salary", formatCurrency(weeklyGross)],
-      ["Income Tax", `-${formatCurrency(weeklyTax)}`],
-      ["National Insurance", `-${formatCurrency(weeklyNI)}`],
-      [`Pension Contribution (${pensionRate}%)`, `-${formatCurrency(weeklyPension)}`],
+      ["Income Tax", `${formatCurrency(weeklyTax)}`],
+      ["National Insurance", `${formatCurrency(weeklyNI)}`],
+      [`Pension Contribution (${pensionRate}%)`, `${formatCurrency(weeklyPension)}`],
       ["Net Pay", formatCurrency(weeklyNet)],
     ],
     theme: "grid",
@@ -108,9 +110,9 @@ export const generatePayslipPDF = (payrollData) => {
     head: [["Description", "Amount"]],
     body: [
       ["Gross Salary", formatCurrency(monthlyGross)],
-      ["Income Tax", `-${formatCurrency(monthlyTax)}`],
-      ["National Insurance", `-${formatCurrency(monthlyNI)}`],
-      [`Pension Contribution (${pensionRate}%)`, `-${formatCurrency(monthlyPension)}`],
+      ["Income Tax", `${formatCurrency(monthlyTax)}`],
+      ["National Insurance", `${formatCurrency(monthlyNI)}`],
+      [`Pension Contribution (${pensionRate}%)`, `${formatCurrency(monthlyPension)}`],
       ["Net Pay", formatCurrency(monthlyNet)],
     ],
     theme: "grid",
@@ -130,9 +132,9 @@ export const generatePayslipPDF = (payrollData) => {
     head: [["Description", "Amount"]],
     body: [
       ["Gross Salary", formatCurrency(grossSalary)],
-      ["Income Tax", `-${formatCurrency(incomeTax)}`],
-      ["National Insurance", `-${formatCurrency(niContributions)}`],
-      [`Pension Contribution (${pensionRate}%)`, `-${formatCurrency(pensionContribution)}`],
+      ["Income Tax", `${formatCurrency(incomeTax)}`],
+      ["National Insurance", `${formatCurrency(niContributions)}`],
+      [`Pension Contribution (${pensionRate}%)`, `${formatCurrency(pensionContribution)}`],
       ["Net Pay", formatCurrency(netSalary)],
     ],
     theme: "grid",

@@ -1,3 +1,4 @@
+//Modal.jsx
 import { useEffect } from "react"
 import { FaTimes } from "react-icons/fa"
 

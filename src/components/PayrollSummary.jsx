@@ -1,3 +1,4 @@
+//PayrollSummary.jsx
 import { useRef } from "react"
 import Card from "./ui/Card.jsx"
 import Button from "./ui/Button.jsx"
@@ -42,15 +43,15 @@ function PayrollSummary({ payrollData }) {
             </div>
             <div className="flex justify-between p-3 border-b ">
               <span>Income Tax:</span>
-              <span className="text-red-500">-£{incomeTax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className="text-red-500">£{incomeTax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 border-b ">
               <span>National Insurance:</span>
-              <span className="text-red-500">-£{niContributions.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className="text-red-500">£{niContributions.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 border-b ">
               <span>Pension ({pensionRate}%):</span>
-              <span className="text-red-500">-£{pensionContribution.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className="text-red-500">£{pensionContribution.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 bg-blue-50 font-semibold">
               <span>Net Salary:</span>
@@ -67,15 +68,15 @@ function PayrollSummary({ payrollData }) {
             </div>
             <div className="flex justify-between p-3 border-b ">
               <span>Income Tax:</span>
-              <span className=" text-red-500">-£{monthlyTax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className=" text-red-500">£{monthlyTax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 border-b">
               <span>National Insurance:</span>
-              <span className=" text-red-500">-£{monthlyNI.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className=" text-red-500">£{monthlyNI.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 border-b ">
               <span>Pension ({pensionRate}%):</span>
-              <span className=" text-red-500">-£{monthlyPension.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className=" text-red-500">£{monthlyPension.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 bg-blue-50 font-semibold">
               <span>Net Salary:</span>
@@ -91,15 +92,15 @@ function PayrollSummary({ payrollData }) {
             </div>
             <div className="flex justify-between p-3 border-b ">
               <span>Income Tax:</span>
-              <span className=" text-red-500">-£{weeklyTax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className=" text-red-500">£{weeklyTax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 border-b">
               <span>National Insurance:</span>
-              <span className=" text-red-500">-£{weeklyNI.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className=" text-red-500">£{weeklyNI.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 border-b ">
               <span>Pension ({pensionRate}%):</span>
-              <span className=" text-red-500">-£{weeklyPension.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className=" text-red-500">£{weeklyPension.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between p-3 bg-blue-50 font-semibold">
               <span>Net Salary:</span>

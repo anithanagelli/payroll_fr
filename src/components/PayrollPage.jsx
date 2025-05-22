@@ -1,3 +1,4 @@
+//PayrollPage.jsx
 import { useState, useEffect } from "react"
 import Card from "./ui/Card.jsx"
 import Button from "./ui/Button.jsx"
@@ -23,17 +24,17 @@ function PayrollPage() {
           <h1 className="text-2xl font-semibold">Payroll</h1>
           <p className="text-gray-600">Process and manage your company's payroll</p>
         </div>
-        <div className="flex gap-4">
+        {/* <div className="flex gap-4">
           <Button className="bg-blue-600 text-white px-4 py-2 rounded-md flex items-center gap-2">
             <FaPlay /> Run Payroll
           </Button>
           <Button className="border border-gray-300 text-gray-700 px-4 py-2 rounded-md flex items-center gap-2">
             <FaCalendarAlt /> Schedule
           </Button>
-        </div>
+        </div> */}
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:grid-cols-3 mb-8">
+      {/* <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:grid-cols-3 mb-8">
         <Card className="p-6">
           <h3 className="text-xl font-semibold mb-2">Next Payroll</h3>
           <p className="text-sm text-gray-500 mb-2">April 2025</p>
@@ -61,7 +62,7 @@ function PayrollPage() {
           <div className="text-2xl font-semibold mb-2">£3,853</div>
           <p className="text-sm text-gray-500">National Insurance</p>
         </Card>
-      </div>
+      </div> */}
 
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-2">Process Individual Payroll</h2>
