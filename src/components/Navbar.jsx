@@ -44,7 +44,8 @@ function Navbar() {
             mobileMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
           } lg:translate-x-0 lg:opacity-100`}
         >
-          {["Dashboard", "Employees", "Payroll"].map((text, i) => (
+          {/* {["Dashboard", "Employees", "Payroll"].map((text, i) => ( */}
+           {["Employees", "Payroll"].map((text, i) => (  
             <li key={i} className="w-full text-center lg:w-auto">
               <Link
                 to={text === "Dashboard" ? "/" : `/${text.toLowerCase()}`}

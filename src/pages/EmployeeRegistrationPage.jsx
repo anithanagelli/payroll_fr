@@ -1,10 +1,10 @@
 //EmployeeRegistrationPage
-
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { FaUserPlus, FaExclamationTriangle, FaCheck } from "react-icons/fa"
 import { useEmployees } from "../context/EmployeeContext.jsx"
 import { FaSpinner } from "react-icons/fa";
+import Loader from "../components/ui/loader.jsx";
 
 
 function EmployeeRegistrationPage() {
@@ -32,7 +32,6 @@ function EmployeeRegistrationPage() {
     emergencyContact: "",
     emergencyPhone: "",
   })
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({})
 
   const departments = [
@@ -49,18 +48,19 @@ function EmployeeRegistrationPage() {
   ]
 
   useEffect(() => {
-    if (employeeId) {
-      // If editing, fetch the current employee data
-      const employee = getEmployee(employeeId) // Assuming you have a function to get an employee by ID
-      console.log("Employee data:", employee);
-      if (employee) {
-        setFormData({
-          ...employee, // Assuming the employee object structure matches formData
-          // confirmPassword: employee.password, // Pre-fill confirm password as well
-        })
-      }
+  if (employeeId) {
+    const employee = getEmployee(employeeId);
+    if (employee) {
+      setFormData((prev) => ({
+        ...prev,
+        ...employee,
+        // password: "",
+        // confirmPassword: "",
+      }));
     }
-  }, [employeeId, getEmployee])
+  }
+}, [employeeId, getEmployee]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -131,80 +131,53 @@ function EmployeeRegistrationPage() {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true);
+  e.preventDefault();
+  setIsLoading(true);
+  // setError("");
+  // setSuccess(false);
 
-    if (!validateForm()) {
-      setError("Please correct the errors in the form")
-      return
-    }
-
-    setIsLoading(true)
-    setError("")
-
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
-      // Format employee data for the directory
-      const employeeData = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        name: `${formData.firstName} ${formData.lastName}`,
-        email: formData.email,
-        dob:formData.dob,
-        employeeId:formData.employeeId,
-        position: formData.position,
-        department: formData.department,
-        salary: Number(formData.salary),
-        taxCode: formData.taxCode,
-        startDate: formData.startDate,
-        phoneNumber: formData.phoneNumber,
-        address: formData.address,
-        emergencyContact: formData.emergencyContact,
-        emergencyPhone: formData.emergencyPhone,
-        status: "Active",
-        password: formData.password,
-        confirmPassword: formData.confirmPassword
-      }
-
-      if (employeeId) {
-        // If we're editing, update the existing employee data
-        updateEmployee(employeeId, employeeData)
-        console.log("Employee updated:", employeeData)
-      } else {
-        // If we're creating, add a new employee
-        const newEmployee = addEmployee(employeeData)
-        console.log("New employee added:", newEmployee)
-
-        // Store login credentials
-        const userCredentials = JSON.parse(localStorage.getItem("userCredentials") || "[]")
-        userCredentials.push({
-          email: formData.email,
-          password: formData.password,
-          employeeId: newEmployee.id,
-        })
-        localStorage.setItem("userCredentials", JSON.stringify(userCredentials))
-      }
-
-      // Show success message
-      setSuccess(true)
-
-      // Reset form after 2 seconds and redirect
-      setTimeout(() => {
-         setLoading(false);
-        navigate("/employees")
-      }, 2000)
-    } catch (err) {
-      console.error("Registration error:", err)
-      setError("An error occurred during registration. Please try again.")
-    } finally {
-      setIsLoading(false)
-    }
+  if (!validateForm()) {
+    setError("Please correct the errors in the form");
+    return;
   }
+
+  setIsLoading(true);
+  setError("");
+
+  const employeeData = {
+    ...formData,
+    name: `${formData.firstName} ${formData.lastName}`,
+    salary: Number(formData.salary),
+    status: "Active",
+  };
+
+  try {
+    if (employeeId) {
+      await updateEmployee(Number(employeeId), employeeData);
+      console.log("Employee updated:", employeeData);
+    } else {
+      const newEmployee = await addEmployee(employeeData);
+      console.log("New employee added:", newEmployee);
+    }
+
+    setSuccess(true);
+
+    setTimeout(() => {
+       setIsLoading(true)
+      navigate("/employees");
+    }, 2000);
+  } catch (err) {
+    console.error("Error saving employee:", err);
+    setError("An error occurred while saving the employee. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+       {isLoading && <Loader />}
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900">
@@ -213,7 +186,7 @@ function EmployeeRegistrationPage() {
           <p className="mt-2 text-lg text-gray-600">{employeeId ? "Edit the employee details" : "Add a new employee to the payroll system"}</p>
         </div>
 
-        {success ? (
+        {/* {success ? (
           <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
             <div className="flex">
               <div className="flex-shrink-0">
@@ -237,7 +210,7 @@ function EmployeeRegistrationPage() {
               </div>
             </div>
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className="bg-white shadow-md rounded-lg p-6 mb-10">
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -448,7 +421,7 @@ function EmployeeRegistrationPage() {
                     value={formData.employeeId}
                     onChange={handleChange}
                     className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                    placeholder="Optional - System will generate if empty"
+                    // placeholder="Optional - System will generate if empty"
                   />
                 </div>
               </div>
@@ -536,7 +509,7 @@ function EmployeeRegistrationPage() {
                 >
                   Cancel
                 </button>
-                <button
+                {/* <button
                   type="submit"
                   disabled={isLoading}
                   className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
@@ -569,14 +542,77 @@ function EmployeeRegistrationPage() {
                     </>
                   ) : (
                     <>
-                      <FaUserPlus className="mr-2" />  {employeeId ? "Update Employee" : "Register Employee"}
+                      <FaUserPlus className="mr-2" />  {isLoading ? "Update Employee" : "Register Employee"}
                     </>
                   )}
-                </button>
+                </button> */}
+                <button
+  type="submit"
+  disabled={isLoading}
+  className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+    isLoading ? "opacity-70 cursor-not-allowed" : ""
+  }`}
+>
+  {isLoading ? (
+    <>
+      <svg
+        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        ></circle>
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        ></path>
+      </svg>
+      Processing...
+    </>
+  ) : (
+    <>
+      <FaUserPlus className="mr-2" /> {employeeId ? "Update Employee" : "Register Employee"}
+    </>
+  )}
+</button>
+
               </div>
             </div>
           </form>
         </div>
+          {success ? (
+          <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <FaCheck className="h-5 w-5 text-green-500" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-green-700">
+                  {employeeId ? "Employee updated successfully!" : "Employee registration successful!"} Redirecting to employees page...
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : error ? (
+          <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <FaExclamationTriangle className="h-5 w-5 text-red-500" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   )

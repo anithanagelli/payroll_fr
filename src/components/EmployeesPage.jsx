@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Card from "./ui/Card.jsx"
 import Button from "./ui/Button.jsx"
+import Loader from "./ui/loader.jsx";
 import Modal from "./ui/Modal.jsx"
 import EmployeeForm from "./EmployeeForm.jsx"
 import EmployeeRegistrationPage from "../pages/EmployeeRegistrationPage.jsx"
@@ -28,6 +29,7 @@ function EmployeesPage() {
 
   const [searchTerm, setSearchTerm] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState(null)
 
   const filteredEmployees = employees.filter(
@@ -49,7 +51,7 @@ function EmployeesPage() {
   }
 
   const handleEditEmployee = (updatedEmployee) => {
-    updateEmployee(updatedEmployee)
+    updateEmployee(updatedEmployee.id, updatedEmployee)
     setCurrentEmployee(null)
     setIsModalOpen(false)
   }
@@ -70,6 +72,7 @@ function EmployeesPage() {
 
   return (
     <div className="p-4 sm:p-6 md:p-8">
+       {loading && <Loader />}
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <div>

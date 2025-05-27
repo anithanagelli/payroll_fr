@@ -57,7 +57,7 @@ export const generatePayslipPDF = (payrollData) => {
 
   doc.setFontSize(12)
   doc.setFont("helvetica", "normal")
-  doc.text("Middleware Talents Ltd", 105, 30, { align: "center" })
+  doc.text("Middleware Talents Pvt Ltd", 105, 30, { align: "center" })
   doc.setFontSize(10)
   doc.text("200, Brrok Drive, Green park, Reading, RG2 6UB, UK", 105, 35, { align: "center" })
   doc.text("Company Reg: 0800 060 8702", 105, 40, { align: "center" })

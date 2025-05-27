@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
 
-            <Route
+            {/* <Route
               path="/"
               element={
                 <ProtectedRoute>
@@ -31,7 +31,7 @@ function App() {
                   </div>
                 </ProtectedRoute>
               }
-            />
+            /> */}
 
             <Route
               path="/employees"
@@ -47,7 +47,7 @@ function App() {
               }
             />
 
-            {/* ✅ Add new employee */}
+            {/*  Add new employee */}
             <Route
               path="/employees/register"
               element={
