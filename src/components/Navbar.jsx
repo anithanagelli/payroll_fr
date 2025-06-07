@@ -25,8 +25,9 @@ function Navbar() {
           to="/"
           className="flex items-center gap-2 text-blue-600 font-bold text-lg"
         >
-          <FaMoneyBillWave className="text-2xl" />
-          <span>PayrollPro</span>
+          {/* <FaMoneyBillWave className="text-2xl" />
+          <span>PayrollPro</span> */}
+          Employer Dashboard
         </Link>
 
         {/* Mobile Icon */}

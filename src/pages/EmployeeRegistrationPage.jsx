@@ -18,23 +18,30 @@ function EmployeeRegistrationPage() {
     firstName: "",
     lastName: "",
     email: "",
-    dob:"",
-    password: "",
-    confirmPassword: "",
+    dateOfBirth:"",
+    // password: "",
+    // confirmPassword: "",
     position: "",
-    department: "",
-    salary: "",
+    employeeDepartment: "",
+    grossIncome: "",
     taxCode: "1257L",
-    startDate: "",
+    isEmergencyCode:"",
+    employmentStartedDate: "",
     employeeId: "",
     phoneNumber: "",
     address: "",
     emergencyContact: "",
     emergencyPhone: "",
+    postCode:"",
+    employmentType:"",
+    isDirector:"",
+    payPeriod:"",
+    studentLoan:"",
+    isPostgraduateLoan:"",
   })
   const [errors, setErrors] = useState({})
 
-  const departments = [
+  const employeeDepartments = [
     "Development",
     "Marketing",
     "Sales",
@@ -86,13 +93,13 @@ function EmployeeRegistrationPage() {
       "firstName",
       "lastName",
       "email",
-      "dob",
-      "password",
-      "confirmPassword",
+      "dateOfBirth",
+      // "password",
+      // "confirmPassword",
       "position",
-      "department",
-      "salary",
-      "startDate",
+      "employeeDepartment",
+      "grossIncome",
+      "employmentStartedDate",
     ]
 
     requiredFields.forEach((field) => {
@@ -116,9 +123,9 @@ function EmployeeRegistrationPage() {
       newErrors.confirmPassword = "Passwords do not match"
     }
 
-    // Salary validation
-    if (formData.salary && isNaN(Number(formData.salary))) {
-      newErrors.salary = "Salary must be a number"
+    // grossIncome validation
+    if (formData.grossIncome && isNaN(Number(formData.grossIncome))) {
+      newErrors.grossIncome = "grossIncome must be a number"
     }
 
     // Phone number validation
@@ -147,7 +154,7 @@ function EmployeeRegistrationPage() {
   const employeeData = {
     ...formData,
     name: `${formData.firstName} ${formData.lastName}`,
-    salary: Number(formData.salary),
+    grossIncome: Number(formData.grossIncome),
     status: "Active",
   };
 
@@ -181,7 +188,7 @@ function EmployeeRegistrationPage() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900">
-            {employeeId ? "Edit Employee" : "Register New Employee"}
+            {employeeId ? "Edit Employee" : "Add New Employee"}
           </h1>
           <p className="mt-2 text-lg text-gray-600">{employeeId ? "Edit the employee details" : "Add a new employee to the payroll system"}</p>
         </div>
@@ -287,20 +294,20 @@ function EmployeeRegistrationPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="dob" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700">
                     Date of Birth
                   </label>
                   <input
                     type="Date"
-                    name="dob"
-                    id="dob"
-                    value={formData.dob}
+                    name="dateOfBirth"
+                    id="dateOfBirth"
+                    value={formData.dateOfBirth}
                     onChange={handleChange}
                     className={`mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
-                      errors.dob ? "border-red-500" : ""
+                      errors.dateOfBirth ? "border-red-500" : ""
                     }`}
                   />
-                  {errors.dob && <p className="mt-1 text-sm text-red-600">{errors.dob}</p>}
+                  {errors.dateOfBirth && <p className="mt-1 text-sm text-red-600">{errors.dateOfBirth}</p>}
                 </div>
 
                 <div>
@@ -340,43 +347,43 @@ function EmployeeRegistrationPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="department" className="block text-sm font-medium text-gray-700">
-                    Department*
+                  <label htmlFor="employeeDepartment" className="block text-sm font-medium text-gray-700">
+                    employeeDepartment*
                   </label>
                   <select
-                    name="department"
-                    id="department"
-                    value={formData.department}
+                    name="employeeDepartment"
+                    id="employeeDepartment"
+                    value={formData.employeeDepartment}
                     onChange={handleChange}
                     className={`mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
-                      errors.department ? "border-red-500" : ""
+                      errors.employeeDepartment ? "border-red-500" : ""
                     }`}
                   >
-                    <option value="">Select Department</option>
-                    {departments.map((dept) => (
+                    <option value="">Select employeeDepartment</option>
+                    {employeeDepartments.map((dept) => (
                       <option key={dept} value={dept}>
                         {dept}
                       </option>
                     ))}
                   </select>
-                  {errors.department && <p className="mt-1 text-sm text-red-600">{errors.department}</p>}
+                  {errors.employeeDepartment && <p className="mt-1 text-sm text-red-600">{errors.employeeDepartment}</p>}
                 </div>
 
                 <div>
-                  <label htmlFor="salary" className="block text-sm font-medium text-gray-700">
-                    Annual Salary (£)*
+                  <label htmlFor="grossIncome" className="block text-sm font-medium text-gray-700">
+                    Annual grossIncome (£)*
                   </label>
                   <input
                     type="text"
-                    name="salary"
-                    id="salary"
-                    value={formData.salary}
+                    name="grossIncome"
+                    id="grossIncome"
+                    value={formData.grossIncome}
                     onChange={handleChange}
                     className={`mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
-                      errors.salary ? "border-red-500" : ""
+                      errors.grossIncome ? "border-red-500" : ""
                     }`}
                   />
-                  {errors.salary && <p className="mt-1 text-sm text-red-600">{errors.salary}</p>}
+                  {errors.grossIncome && <p className="mt-1 text-sm text-red-600">{errors.grossIncome}</p>}
                 </div>
 
                 <div>
@@ -394,20 +401,20 @@ function EmployeeRegistrationPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
-                    Start Date*
+                  <label htmlFor="employmentStartedDate" className="block text-sm font-medium text-gray-700">
+                    Employment Started Date*
                   </label>
                   <input
                     type="date"
-                    name="startDate"
-                    id="startDate"
-                    value={formData.startDate}
+                    name="employmentStartedDate"
+                    id="employmentStartedDate"
+                    value={formData.employmentStartedDate}
                     onChange={handleChange}
                     className={`mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
-                      errors.startDate ? "border-red-500" : ""
+                      errors.employmentStartedDate ? "border-red-500" : ""
                     }`}
                   />
-                  {errors.startDate && <p className="mt-1 text-sm text-red-600">{errors.startDate}</p>}
+                  {errors.employmentStartedDate && <p className="mt-1 text-sm text-red-600">{errors.employmentStartedDate}</p>}
                 </div>
 
                 <div>
@@ -424,6 +431,21 @@ function EmployeeRegistrationPage() {
                     // placeholder="Optional - System will generate if empty"
                   />
                 </div>
+                 <div>
+                  <label htmlFor="employerId" className="block text-sm font-medium text-gray-700">
+                    Employer ID
+                  </label>
+                  <input
+                    type="text"
+                    name="employerId"
+                    id="employerId"
+                    value={formData.employerId}
+                    onChange={handleChange}
+                    className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    // placeholder="Optional - System will generate if empty"
+                  />
+                </div>
+
               </div>
             </div>
 
@@ -460,7 +482,7 @@ function EmployeeRegistrationPage() {
               </div>
             </div>
 
-            <div className="bg-yellow-50 p-4 rounded-md mb-6">
+            {/* <div className="bg-yellow-50 p-4 rounded-md mb-6">
               <h2 className="text-lg font-medium text-yellow-800 mb-2">Account Setup</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -497,7 +519,7 @@ function EmployeeRegistrationPage() {
                   {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="flex items-center justify-between pt-4 border-t border-gray-200">
               <p className="text-sm text-gray-500">* Required fields</p>

@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { FaMoneyBillWave, FaLock, FaEnvelope } from "react-icons/fa"
@@ -34,7 +32,7 @@ function LoginPage() {
       if (userData) {
         // Login successful
         login(userData)
-        navigate("/")
+        navigate("/employees")
       } else {
         setError("Invalid email or password")
       }
@@ -116,7 +114,7 @@ function LoginPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
                   id="remember-me"
@@ -134,7 +132,7 @@ function LoginPage() {
                   Forgot your password?
                 </a>
               </div>
-            </div>
+            </div> */}
 
             <div>
               <button
@@ -149,7 +147,7 @@ function LoginPage() {
             </div>
           </form>
 
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
@@ -178,7 +176,7 @@ function LoginPage() {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

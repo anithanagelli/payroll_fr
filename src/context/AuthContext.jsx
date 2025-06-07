@@ -1,5 +1,4 @@
-"use client"
-
+//AuthContext.jsx
 import { createContext, useState, useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -38,10 +37,10 @@ export function AuthProvider({ children }) {
   // Check if credentials match any stored user
   const checkCredentials = (email, password) => {
     // Check admin credentials (hardcoded for demo)
-    if (email === "admin@company.com" && password === "password") {
+    if (email === "anitha@gmail.com" && password === "Anitha@123") {
       return {
-        name: "Admin User",
-        email: "admin@company.com",
+        name: "Anitha Nagelli",
+        email: "anitha@gmail.com",
         role: "admin",
       }
     }
